@@ -1,43 +1,53 @@
 {
-    "manifest_version": 2,
-    "name": "Borderify",
-    "version": "1.0",
-    "description": "Adds a red border to all webpages matching mozilla.org",
-    "icons": {
-        "48": "icons/border-48.png"
-    },
-    "permissions": [
-        "storage",
-        "<all_urls>",
-        "declarativeNetRequestWithHostAccess"
+  "manifest_version": 2,
+  "name": "Borderify",
+  "version": "1.0",
+  "description": "Adds a red border to all webpages matching mozilla.org",
+  "icons": {
+    "48": "border-48.png"
+  },
+  "permissions": [
+    "storage",
+    "<all_urls>",
+    "declarativeNetRequestWithHostAccess"
+  ],
+  "background": {
+    "scripts": [
+      "background.js"
     ],
-    "background": {
-        "scripts": [
-            "background.js"
-        ],
-        "persistent": true
+    "persistent": true
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content_start_mellowtel.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true
     },
-    "content_scripts": [
-        {
-            "matches": [
-                "<all_urls>"
-            ],
-            "js": [
-                "content_start_mellowtel.js"
-            ],
-            "run_at": "document_start",
-            "all_frames": true
-        },
-        {
-            "matches": [
-                "http://*.mozilla.org/*"
-            ],
-            "js": [
-                "borderify.js"
-            ]
-        }
-    ],
-    "browser_action": {
-        "default_popup": "popup.html"
+    {
+      "matches": [
+        "http://*.mozilla.org/*"
+      ],
+      "js": [
+        "borderify.js"
+      ]
+    },
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "mellowtel-content.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true
     }
+  ],
+  "browser_action": {
+    "default_popup": "popup.html"
+  }
 }
